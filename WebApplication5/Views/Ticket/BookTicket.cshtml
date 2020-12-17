@@ -1,0 +1,16 @@
+﻿@model BookResult
+
+<div>
+    訂票結果 <span class="text-danger">: @{
+            if (!Model.IsSuccess)
+              {   
+                <span>失敗原因:@(Model.Message)</span>;
+              }
+        }
+    </span>
+</div>
+<form asp-action="Index">
+    <button class="btn btn-danger btn-sm">
+        回上一頁
+    </button>
+</form>

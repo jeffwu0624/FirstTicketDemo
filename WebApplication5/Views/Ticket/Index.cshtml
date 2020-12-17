@@ -1,0 +1,24 @@
+﻿@page
+@model WebApplication5.Views.Ticket.IndexModel
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+
+票數目前仍有 @ViewBag.RemainingCount 
+
+<form asp-action="BookTicket">
+    <input type="hidden" name="captcha" id="captchaInput" value=""/>
+    <button type="submit"
+            class="btn btn-primary btn-sm">
+        訂票
+    </button>
+</form>
+@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js?render=@Configuration["googleReCaptcha:SiteKey"]"></script>
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('@Configuration["googleReCaptcha:SiteKey"]', { action: 'contact' }).then(function (token) {
+                $("#captchaInput").val(token);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,10 @@
+﻿@model BookResult
+
+<div>
+    訂票結果 <span class="text-danger"> : @(Model.IsSuccess ? "成功" : "失敗")</span> 
+</div>
+<form asp-action="Index">
+    <button class="btn btn-primary btn-sm">
+        再次訂票
+    </button>
+</form>
