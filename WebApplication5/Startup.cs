@@ -1,9 +1,7 @@
-using AspNetCoreRateLimit;
 using GoogleReCaptcha.V3;
 using GoogleReCaptcha.V3.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,16 +29,19 @@ namespace WebApplication5
             services.AddHttpClient<ICaptchaValidator, GoogleReCaptchaValidator>();
 
             services.AddOptions();
-            //從appsettings.json獲取相應配置
-            services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
             
-            //注入計數器和規則儲存
-            services.AddSingleton<IIpPolicyStore, DistributedCacheIpPolicyStore>();
-            services.AddSingleton<IRateLimitCounterStore, DistributedCacheRateLimitCounterStore>();
+            ////從appsettings.json獲取相應配置
+            //services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
             
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //配置（計數器金鑰生成器）
-            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+            ////注入計數器和規則儲存
+            //services.AddSingleton<IIpPolicyStore, DistributedCacheIpPolicyStore>();
+            //services.AddSingleton<IRateLimitCounterStore, DistributedCacheRateLimitCounterStore>();
+            
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
+            ////配置（計數器金鑰生成器）
+            //services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+            
             services.AddSingleton<ITicketService, TicketService>();
 
             services.AddControllersWithViews();
@@ -64,7 +65,7 @@ namespace WebApplication5
 
             app.UseAuthorization();
 
-            app.UseIpRateLimiting();
+            //app.UseIpRateLimiting();
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using FirstTicketDemo.Infrastructure.Attribute;
 using GoogleReCaptcha.V3.Interface;
 using Microsoft.AspNetCore.Mvc;
 using SimpleCaptcha;
@@ -27,6 +28,7 @@ namespace WebApplication5.Controllers
         }
 
         [HttpPost]
+        [RequestRateLimit(Name = "RequestRateLimit", Seconds = 1)]
         public async Task<IActionResult> BookTicket(string captcha)
         {
             if (!await _captchaValidator.IsCaptchaPassedAsync(captcha))
